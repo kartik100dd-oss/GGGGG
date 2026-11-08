@@ -1,0 +1,287 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile information containing student's marks, stream, budget, and interests.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The Firebase Auth UID of the student."
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the student."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the student."
+        },
+        "stream": {
+          "type": "string",
+          "description": "Academic stream: Science PCM, Science PCB, Commerce, Arts, Law, Design, etc."
+        },
+        "class10Marks": {
+          "type": "string",
+          "description": "Class 10 marksheet or percentage."
+        },
+        "class12Marks": {
+          "type": "string",
+          "description": "Class 12 marksheet or percentage."
+        },
+        "entranceScores": {
+          "type": "string",
+          "description": "Scores in exams like JEE, NEET, SAT, CUET, etc."
+        },
+        "budget": {
+          "type": "string",
+          "description": "Annual education budget limit."
+        },
+        "locationPreference": {
+          "type": "string",
+          "description": "Preferred study locations (e.g., Punjab, Delhi, Bangalore, USA, UK)."
+        },
+        "hostelRequirement": {
+          "type": "boolean",
+          "description": "Whether the student requires hostel accommodation."
+        },
+        "careerInterests": {
+          "type": "string",
+          "description": "Comma-separated career interests or hobbies."
+        },
+        "achievements": {
+          "type": "string",
+          "description": "Sports, Olympiads, or extracurricular achievements."
+        },
+        "resumeText": {
+          "type": "string",
+          "description": "Extracted text or highlights from the student's resume."
+        },
+        "parentPreferences": {
+          "type": "string",
+          "description": "Specific parent constraints, safety or location preferences."
+        },
+        "targetCgpa": {
+          "type": "string",
+          "description": "Target CGPA of the student."
+        },
+        "targetRank": {
+          "type": "string",
+          "description": "Target entrance exam rank."
+        },
+        "currentCgpa": {
+          "type": "string",
+          "description": "Current CGPA of the student."
+        },
+        "currentRank": {
+          "type": "string",
+          "description": "Current entrance exam rank / prep score."
+        },
+        "yearCgpaTargets": {
+          "type": "string",
+          "description": "JSON string of year-by-year targets and actual progress."
+        },
+        "completedMilestones": {
+          "type": "string",
+          "description": "JSON string of completed milestones."
+        }
+      },
+      "required": [
+        "uid",
+        "name",
+        "email",
+        "stream"
+      ]
+    },
+    "SavedReport": {
+      "title": "SavedReport",
+      "description": "A generated comprehensive intelligence report for the student.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Report document ID."
+        },
+        "userId": {
+          "type": "string",
+          "description": "ID of the student user."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of when the report was generated."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the report."
+        },
+        "reportData": {
+          "type": "string",
+          "description": "Full JSON string containing all the compiled 18 modules."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "createdAt",
+        "title",
+        "reportData"
+      ]
+    },
+    "SharedReport": {
+      "title": "SharedReport",
+      "description": "A publicly shareable, view-only academic roadmap and report representation.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique shared ID."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the shared report."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of sharing."
+        },
+        "createdBy": {
+          "type": "string",
+          "description": "User UID who shared this report."
+        },
+        "reportData": {
+          "type": "string",
+          "description": "JSON string containing report modules."
+        },
+        "profileData": {
+          "type": "string",
+          "description": "JSON string containing student profile details."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "createdAt",
+        "createdBy",
+        "reportData"
+      ]
+    },
+    "ChatSession": {
+      "title": "ChatSession",
+      "description": "A simulated interactive session (e.g. Mock Interview Coach or AI Advisor).",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of chat: interview_coach or mentor."
+        },
+        "messages": {
+          "type": "string",
+          "description": "JSON serialized array of messages."
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "type",
+        "messages",
+        "updatedAt"
+      ]
+    },
+    "NewsBookmark": {
+      "title": "NewsBookmark",
+      "description": "A bookmarked industry news article.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique bookmark ID."
+        },
+        "userId": {
+          "type": "string",
+          "description": "The UID of the user who bookmarked the article."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the article."
+        },
+        "link": {
+          "type": "string",
+          "description": "URL of the article."
+        },
+        "source": {
+          "type": "string",
+          "description": "News source publisher."
+        },
+        "pubDate": {
+          "type": "string",
+          "description": "Publication date of the article."
+        },
+        "savedAt": {
+          "type": "string",
+          "description": "ISO timestamp of when the article was bookmarked."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "title",
+        "link",
+        "source"
+    },
+    "WellnessCheckin": {
+      "title": "WellnessCheckin",
+      "description": "Daily mental wellness and study focus check-in record.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "date": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "mood": { "type": "number" },
+        "moodLabel": { "type": "string" },
+        "studyFocusHours": { "type": "number" },
+        "energyLevel": { "type": "number" },
+        "focusSubject": { "type": "string" },
+        "stressLevel": { "type": "string" },
+        "reflectionNote": { "type": "string" },
+        "careerImpactInsight": { "type": "string" }
+      },
+      "required": ["id", "userId", "date", "mood", "studyFocusHours"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Stores current student profile."
+    },
+    "/users/{userId}/reports/{reportId}": {
+      "schema": "SavedReport",
+      "description": "Stores intelligence reports for this student."
+    },
+    "/users/{userId}/chats/{chatId}": {
+      "schema": "ChatSession",
+      "description": "Stores interactive chats/interview sessions."
+    },
+    "/users/{userId}/news_bookmarks/{bookmarkId}": {
+      "schema": "NewsBookmark",
+      "description": "Stores saved news headlines for this user."
+    },
+    "/users/{userId}/wellness_checkins/{checkinId}": {
+      "schema": "WellnessCheckin",
+      "description": "Stores daily mental wellness and study focus tracking data."
+    },
+    "/shared_reports/{sharedId}": {
+      "schema": "SharedReport",
+      "description": "Stores publicly accessible view-only report copies."
+    }
+  }
+}

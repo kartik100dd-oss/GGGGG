@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI RED DRAGON</title>
+    <meta name="description" content="Ultimate educational, career, and college intelligence system providing personalized career counseling, admission prediction, and success roadmaps." />
+    <meta property="og:title" content="AI RED DRAGON" />
+    <meta property="og:description" content="Ultimate educational, career, and college intelligence system providing personalized career counseling, admission prediction, and success roadmaps." />
+    <script>
+      (function() {
+        // Intercept and bypass Vite's HMR WebSocket connections to prevent console connection errors
+        const OriginalWebSocket = window.WebSocket;
+        if (OriginalWebSocket) {
+          const SafeHMRWebSocket = new Proxy(OriginalWebSocket, {
+            construct(target, args) {
+              const urlStr = args[0] ? String(args[0]) : '';
+              // Intercept Vite HMR / hot-reload websockets
+              if (urlStr.includes('vite') || urlStr.includes('hmr') || urlStr.includes('localhost') || urlStr.includes('run.app')) {
+                console.log('[SafeWebSocket] Bypassing dev-server websocket connection to:', urlStr);
+                
+                // Return a safe mock object to avoid connection attempts and silence console noise
+                const mockWS = {
+                  url: urlStr,
+                  readyState: 3, // CLOSED
+                  bufferedAmount: 0,
+                  extensions: '',
+                  protocol: '',
+                  binaryType: 'blob',
+                  onopen: null,
+                  onerror: null,
+                  onclose: null,
+                  onmessage: null,
+                  _listeners: {},
+                  close() {},
+                  send() {},
+                  addEventListener(type, callback) {
+                    if (!this._listeners[type]) this._listeners[type] = [];
+                    this._listeners[type].push(callback);
+                  },
+                  removeEventListener(type, callback) {
+                    if (!this._listeners[type]) return;
+                    this._listeners[type] = this._listeners[type].filter(cb => cb !== callback);
+                  },
+                  dispatchEvent(event) {
+                    const type = event.type;
+                    if (this[`on${type}`]) {
+                      try { this[`on${type}`](event); } catch(e) {}
+                    }
+                    if (this._listeners[type]) {
+                      for (const cb of this._listeners[type]) {
+                        try { cb(event); } catch(e) {}
+                      }
+                    }
+                    return true;
+                  }
+                };
+                return mockWS;
+              }
+              // For all legitimate websockets, construct normally using Reflect
+              return Reflect.construct(target, args);
+            }
+          });
+
+          // Ensure prototype and static constants are preserved
+          SafeHMRWebSocket.prototype = OriginalWebSocket.prototype;
+          for (const key of ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED']) {
+            SafeHMRWebSocket[key] = OriginalWebSocket[key];
+          }
+
+          window.WebSocket = SafeHMRWebSocket;
+        }
+
+        // Keep standard suppression listeners as fallback
+        function isWebSocketError(err) {
+          if (!err) return false;
+          const msg = String(err.message || err.reason || err);
+          return msg.toLowerCase().includes('websocket');
+        }
+        window.addEventListener('unhandledrejection', function(event) {
+          if (isWebSocketError(event.reason)) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }, true);
+        window.addEventListener('error', function(event) {
+          if (isWebSocketError(event.message) || isWebSocketError(event.error)) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }, true);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
